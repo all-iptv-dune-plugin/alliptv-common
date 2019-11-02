@@ -52,7 +52,7 @@ namespace Iptv {
          * @param  string $v
          * @return self
          */
-        public function serial($v)
+        public function id($v)
         {
             if ($v) {
                 $size = strlen($v);
@@ -90,13 +90,13 @@ namespace Iptv {
         /**
          * @var string
          */
-        public $serial = '';
+        public $id = '';
         /**
          * @var string
          */
         public $redirect = '';
 
-        private $__indices = array(1 => 'model', 2 => 'serial', 3 => 'redirect');
+        private $__indices = array(1 => 'model', 2 => 'id', 3 => 'redirect');
 
         /**
          * @param string $data
@@ -117,7 +117,7 @@ namespace Iptv {
             $field = $this->__indices[$id];
             switch ($id) {
 
-                case 1/*model*/: case 2/*serial*/: case 3/*redirect*/:
+                case 1/*model*/: case 2/*id*/: case 3/*redirect*/:
                     // string
                     $size = ord($data[$offset]) | (ord($data[++$offset]) << 8) | (ord($data[++$offset]) << 16) | (ord($data[($offset += 2) - 1]) << 24);
                     list(, $this->{$field}) = unpack('a' . $size, substr($data, $offset, $size));
@@ -133,7 +133,7 @@ namespace Iptv {
         {
             return AuthDataSerializer::create()
               ->model($this->model)
-              ->serial($this->serial)
+              ->id($this->id)
               ->redirect($this->redirect)->dump();
         }
 
