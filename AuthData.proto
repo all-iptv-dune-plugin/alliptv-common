@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+package Iptv;
+
+message AuthData {
+    string model    = 1;
+    string id       = 2;
+    string redirect = 3;
+}

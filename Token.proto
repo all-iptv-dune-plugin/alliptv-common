@@ -1,12 +1,6 @@
 syntax = "proto3";
 
 package Iptv;
-
-message AuthData {
-    string model    = 1;
-    string id       = 2;
-    string redirect = 3;
-}
  
 message Token {
     uint32 expiries = 1;
@@ -14,9 +8,4 @@ message Token {
     uint32 user_id  = 3;
     string payload  = 4;
     string id       = 5;
-}
-
-message TokenContainer {
-    uint32 expiries = 1;
-    string token = 2;
 }
