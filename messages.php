@@ -101,7 +101,7 @@ namespace Iptv {
         /**
          * @param string $data
          */
-        public function __construct($data)
+        public function __construct($data = null)
         {
             if ($data) {
                 $size   = strlen($data);
@@ -132,9 +132,9 @@ namespace Iptv {
         public function dump()
         {
             return AuthDataSerializer::create()
-              ->model($this->model)
-              ->id($this->id)
-              ->redirect($this->redirect)->dump();
+                ->model($this->model)
+                ->id($this->id)
+                ->redirect($this->redirect)->dump();
         }
 
         /**
@@ -143,6 +143,15 @@ namespace Iptv {
         public function __toString()
         {
             return $this->dump();
+        }
+
+        public function toArray()
+        {
+            return array(
+                'model' => $this->model,
+                'id' => $this->id,
+                'redirect' => $this->redirect
+            );
         }
     }
 }
@@ -279,7 +288,7 @@ namespace Iptv {
         /**
          * @param string $data
          */
-        public function __construct($data)
+        public function __construct($data = null)
         {
             if ($data) {
                 $size   = strlen($data);
@@ -315,11 +324,11 @@ namespace Iptv {
         public function dump()
         {
             return TokenSerializer::create()
-              ->expiries($this->expiries)
-              ->paid_to($this->paid_to)
-              ->user_id($this->user_id)
-              ->payload($this->payload)
-              ->id($this->id)->dump();
+                ->expiries($this->expiries)
+                ->paid_to($this->paid_to)
+                ->user_id($this->user_id)
+                ->payload($this->payload)
+                ->id($this->id)->dump();
         }
 
         /**
@@ -328,6 +337,17 @@ namespace Iptv {
         public function __toString()
         {
             return $this->dump();
+        }
+
+        public function toArray()
+        {
+            return array(
+                'expiries' => $this->expiries,
+                'paid_to' => $this->paid_to,
+                'user_id' => $this->user_id,
+                'payload' => $this->payload,
+                'id' => $this->id
+            );
         }
     }
 }
@@ -411,7 +431,7 @@ namespace Iptv {
         /**
          * @param string $data
          */
-        public function __construct($data)
+        public function __construct($data = null)
         {
             if ($data) {
                 $size   = strlen($data);
@@ -447,8 +467,8 @@ namespace Iptv {
         public function dump()
         {
             return TokenContainerSerializer::create()
-              ->expiries($this->expiries)
-              ->token($this->token)->dump();
+                ->expiries($this->expiries)
+                ->token($this->token)->dump();
         }
 
         /**
@@ -457,6 +477,14 @@ namespace Iptv {
         public function __toString()
         {
             return $this->dump();
+        }
+
+        public function toArray()
+        {
+            return array(
+                'expiries' => $this->expiries,
+                'token' => $this->token
+            );
         }
     }
 }
