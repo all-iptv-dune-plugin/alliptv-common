@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package Iptv;
+ 
+message Token {
+    uint32 expiries = 1;
+    uint32 paid_to  = 2;
+    uint32 user_id  = 3;
+    string payload  = 4;
+    string id       = 5;
+}
+
+message TokenContainer {
+    uint32 expiries = 1;
+    string token = 2;
+}
