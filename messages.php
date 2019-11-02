@@ -2,6 +2,152 @@
 
 namespace Iptv {
     
+    final class AuthDataSerializer
+    {
+        private $__data = array('');
+
+        private function __construct()
+        {}
+
+        /**
+         * @return string
+         */
+        public function dump()
+        {
+            return call_user_func_array('pack', $this->__data);
+        }
+
+        /**
+         * @return string
+         */
+        public function __toString()
+        {
+            return $this->dump();
+        }
+
+        /**
+         * @return self
+         */
+        public static function create()
+        {
+            return new static();
+        }
+
+        /**
+         * @param  string $v
+         * @return self
+         */
+        public function model($v)
+        {
+            if ($v) {
+                $size = strlen($v);
+                $this->__data[0] .= 'CVa' . $size;
+                $this->__data[] = 1;
+                $this->__data[] = $size;
+                $this->__data[] = $v;
+            }
+            return $this;
+        }
+        /**
+         * @param  string $v
+         * @return self
+         */
+        public function serial($v)
+        {
+            if ($v) {
+                $size = strlen($v);
+                $this->__data[0] .= 'CVa' . $size;
+                $this->__data[] = 2;
+                $this->__data[] = $size;
+                $this->__data[] = $v;
+            }
+            return $this;
+        }
+        /**
+         * @param  string $v
+         * @return self
+         */
+        public function redirect($v)
+        {
+            if ($v) {
+                $size = strlen($v);
+                $this->__data[0] .= 'CVa' . $size;
+                $this->__data[] = 3;
+                $this->__data[] = $size;
+                $this->__data[] = $v;
+            }
+            return $this;
+        }
+    }
+
+
+    final class AuthData
+    {
+        /**
+         * @var string
+         */
+        public $model = '';
+        /**
+         * @var string
+         */
+        public $serial = '';
+        /**
+         * @var string
+         */
+        public $redirect = '';
+
+        private $__indices = array(1 => 'model', 2 => 'serial', 3 => 'redirect');
+
+        /**
+         * @param string $data
+         */
+        public function __construct($data)
+        {
+            if ($data) {
+                $size   = strlen($data);
+                $offset = 0;
+                do {
+                    $offset = $this->__parse($data, $offset + 1, ord($data[$offset]));
+                } while ($offset < $size);
+            }
+        }
+
+        private function __parse($data, $offset, $id)
+        {
+            $field = $this->__indices[$id];
+            switch ($id) {
+
+                case 1/*model*/: case 2/*serial*/: case 3/*redirect*/:
+                    // string
+                    $size = ord($data[$offset]) | (ord($data[++$offset]) << 8) | (ord($data[++$offset]) << 16) | (ord($data[($offset += 2) - 1]) << 24);
+                    list(, $this->{$field}) = unpack('a' . $size, substr($data, $offset, $size));
+                    $offset += $size;
+                    return $offset;
+            }
+        }
+
+        /**
+         * @return string
+         */
+        public function dump()
+        {
+            return AuthDataSerializer::create()
+              ->model($this->model)
+              ->serial($this->serial)
+              ->redirect($this->redirect)->dump();
+        }
+
+        /**
+         * @return string
+         */
+        public function __toString()
+        {
+            return $this->dump();
+        }
+    }
+}
+namespace Iptv {
+    
     final class TokenSerializer
     {
         private $__data = array('');
