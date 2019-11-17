@@ -3,6 +3,6 @@ syntax = "proto3";
 package Iptv;
 
 enum PaymentType {
-    QIWI  = 0;
-    TRIAL = 1;
+    TRIAL = 0;
+    QIWI  = 1;
 }
