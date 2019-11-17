@@ -3,7 +3,6 @@ syntax = "proto3";
 package Iptv;
 
 enum PaymentState {
-    TRIAL = 0; /// trial mode
     WAITING = 1; /// Счет выставлен, ожидает оплаты	-
     PAID = 2; /// Счет оплачен	+
     REJECTED = 3; /// Счет отклонен	+
